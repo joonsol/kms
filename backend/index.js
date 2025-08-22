@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.FRONT_ORIGIN, // 프론트엔드 주소 (예: http://localhost:5173)
+    origin: process.env.FRONT_ORIGIN, 
     credentials: true,
   })
 );
@@ -24,12 +24,13 @@ mongoose
 
 // ✅ Trip 라우트 사용
 const tripRoutes = require("./routes/tripRoutes");
-app.use("/api/trips", tripRoutes);
+app.use("/auth/trips", tripRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello Express");
 });
 
 app.listen(PORT, () => {
+  console.log('tripRoutes from:', require.resolve('./routes/tripRoutes'));
   console.log(`Server is Running on port ${PORT}!`);
 });

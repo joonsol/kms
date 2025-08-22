@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
     const trip = await newTrip.save();
     return res.status(201).json({ trip });
   } catch (error) {
-    console.error(error);
+    console.error("post 실패",error);
     return res.status(400).json({ error: "여행을 저장하지 못했습니다." });
   }
 });
@@ -42,9 +42,14 @@ router.get("/", async (_req, res) => {
     const trips = await Trip.find().sort({ createdAt: -1 });
     return res.status(200).json({ trips });
   } catch (error) {
-    console.error(error);
+    console.error("",error);
     return res.status(400).json({ error: "데이터를 불러오지 못했습니다." });
   }
+});
+
+router.use((req, _res, next) => {
+  console.log('[TRIPS]', req.method, req.originalUrl, 'body=', req.body);
+  next();
 });
 
 // READ ONE: GET /api/trips/:id
